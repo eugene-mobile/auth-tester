@@ -1,4 +1,4 @@
-package ca.appspace.authtester;
+package ca.appspace.authtester.service.signup;
 
 import android.app.Service;
 import android.content.Intent;
@@ -26,7 +26,7 @@ public class SignupService extends Service {
         data.setEmail("eugene@appspace.ca");
         data.setName("Eugene");
         data.setDoctor(true);
-        data.setMedicalRecord("MS-"+SystemClock.uptimeMillis());
+        data.setMedicalRecord("MS-" + SystemClock.uptimeMillis());
         remoteSignupService.signUp(data);
     }
 }

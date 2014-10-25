@@ -1,4 +1,4 @@
-package ca.appspace.authtester;
+package ca.appspace.authtester.service.signup;
 
 import java.io.Serializable;
 

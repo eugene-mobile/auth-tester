@@ -1,7 +1,6 @@
-package ca.appspace.authtester;
+package ca.appspace.authtester.service.signup;
 
 import retrofit.http.Body;
-import retrofit.http.GET;
 import retrofit.http.POST;
 
 public interface RemoteSignupService {

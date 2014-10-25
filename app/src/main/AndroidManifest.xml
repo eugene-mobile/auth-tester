@@ -14,7 +14,7 @@
         </activity>
 
         <service
-            android:name=".SignupService"
+            android:name=".service.signup.SignupService"
             android:enabled="true"
             android:exported="true" >
         </service>
