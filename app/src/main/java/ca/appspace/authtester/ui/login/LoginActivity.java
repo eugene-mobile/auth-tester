@@ -5,7 +5,6 @@ import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 
 import android.app.LoaderManager.LoaderCallbacks;
-import android.content.ContentResolver;
 import android.content.CursorLoader;
 import android.content.Intent;
 import android.content.Loader;
@@ -31,8 +30,11 @@ import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.common.SignInButton;
 import java.util.ArrayList;
 import java.util.List;
+
+import butterknife.ButterKnife;
+import butterknife.InjectView;
 import ca.appspace.authtester.R;
-import ca.appspace.authtester.SignupActivity;
+import ca.appspace.authtester.ui.signup.SignupActivity;
 
 /**
  * A login screen that offers login via email/password and via Google+ sign in.
@@ -57,22 +59,23 @@ public class LoginActivity extends PlusBaseActivity implements LoaderCallbacks<C
     private UserLoginTask _authTask = null;
 
     // UI references.
-    private AutoCompleteTextView mEmailView;
-    private EditText mPasswordView;
-    private View mProgressView;
-    private View mEmailLoginFormView;
-    private SignInButton mPlusSignInButton;
-    private View mSignOutButtons;
-    private View mLoginFormView;
-    private Button _singupBtn;
+    @InjectView(R.id.email) AutoCompleteTextView mEmailView;
+    @InjectView(R.id.password) EditText mPasswordView;
+    @InjectView(R.id.login_progress) View mProgressView;
+    @InjectView(R.id.email_login_form) View mEmailLoginFormView;
+    @InjectView(R.id.email_sign_in_button) Button _emailSignInButton;
+    @InjectView(R.id.plus_sign_in_button) SignInButton mPlusSignInButton;
+    @InjectView(R.id.plus_sign_out_buttons) View mSignOutButtons;
+    @InjectView(R.id.login_form) View mLoginFormView;
+
+    @InjectView(R.id.signupBtn) Button _singupBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        ButterKnife.inject(this);
 
-        // Find the Google+ sign in button.
-        mPlusSignInButton = (SignInButton) findViewById(R.id.plus_sign_in_button);
         if (supportsGooglePlayServices()) {
             // Set a listener to connect the user when the G+ button is clicked.
             mPlusSignInButton.setOnClickListener(new OnClickListener() {
@@ -89,10 +92,8 @@ public class LoginActivity extends PlusBaseActivity implements LoaderCallbacks<C
         }
 
         // Set up the login form.
-        mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
         populateAutoComplete();
 
-        mPasswordView = (EditText) findViewById(R.id.password);
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
@@ -104,15 +105,13 @@ public class LoginActivity extends PlusBaseActivity implements LoaderCallbacks<C
             }
         });
 
-        Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
-        mEmailSignInButton.setOnClickListener(new OnClickListener() {
+        _emailSignInButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
                 attemptLogin();
             }
         });
 
-        _singupBtn = (Button) findViewById(R.id.signupBtn);
         _singupBtn.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -120,11 +119,6 @@ public class LoginActivity extends PlusBaseActivity implements LoaderCallbacks<C
             }
 
         });
-
-        mLoginFormView = findViewById(R.id.login_form);
-        mProgressView = findViewById(R.id.login_progress);
-        mEmailLoginFormView = findViewById(R.id.email_login_form);
-        mSignOutButtons = findViewById(R.id.plus_sign_out_buttons);
     }
 
     private void openSignup() {

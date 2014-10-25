@@ -1,4 +1,4 @@
-package ca.appspace.authtester;
+package ca.appspace.authtester.ui.signup;
 
 import android.app.Activity;
 import android.app.ActionBar;
@@ -11,17 +11,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.os.Build;
 
+import butterknife.ButterKnife;
+import ca.appspace.authtester.R;
+
 public class SignupActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
-        if (savedInstanceState == null) {
-            getFragmentManager().beginTransaction()
-                    .add(R.id.container, new PlaceholderFragment())
-                    .commit();
-        }
+        ButterKnife.inject(this);
+
     }
 
 
@@ -44,19 +44,4 @@ public class SignupActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
-    /**
-     * A placeholder fragment containing a simple view.
-     */
-    public static class PlaceholderFragment extends Fragment {
-
-        public PlaceholderFragment() {
-        }
-
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_signup, container, false);
-            return rootView;
-        }
-    }
 }
